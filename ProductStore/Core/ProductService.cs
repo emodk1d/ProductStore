@@ -23,6 +23,7 @@ public class ProductService : IRepository<Product>
     {
         _dbContext.Products.Remove(_dbContext.Products.Find(id));
         _dbContext.SaveChanges();
+        //FIXME
     }
 
     public void Update(Product product)
@@ -51,7 +52,7 @@ public class ProductService : IRepository<Product>
 
     public Product GetByArticle(string article)
     {
-        return _dbContext.Products.FirstOrDefault(p => p.Article == article);
+        return _dbContext.Products.SingleOrDefault(p => p.Article == article);
     }
 
     public List<Product> GetByManufacturer(string manufacturer)
@@ -67,5 +68,10 @@ public class ProductService : IRepository<Product>
     public List<Product> GetByPrice(decimal price)
     {
         return _dbContext.Products.Where(p => p.Price == price).ToList();
+    }
+
+    public List<Product> GetByName(string name)
+    {
+        return _dbContext.Products.Where(p => p.Name == name).ToList();
     }
 }
